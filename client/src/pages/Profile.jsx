@@ -2,8 +2,10 @@ import {useSelector} from 'react-redux';
 import {useRef, useState, useEffect} from 'react'
 import {getStorage, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
-import { updateUserStart,updateUserSuccess,updateUserFailure, deleteUserStart, deleteFailure, deleteUserSuccess, signOutUserStart, signOutFailure, signOutUserSuccess } from '../redux/user/userSlice';
+import { updateUserStart,updateUserSuccess,updateUserFailure, deleteUserStart, 
+deleteFailure, deleteUserSuccess, signOutUserStart, signOutFailure, signOutUserSuccess } from '../redux/user/userSlice';
 import {useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 
 export default function Profile() {
@@ -137,6 +139,11 @@ export default function Profile() {
         <input type='password' placeholder='password' id='password' className='border p-3 rounded-lg'/>
         <button disabled = {loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>
         {loading ? 'Loading..' : 'update'}</button>
+
+        <Link className='text-white bg-green-700 p-3 rounded-lg uppercase text-center hover:opacity-95' to={"/create-listing"}>
+        Create Listing
+        
+        </Link>
 
       </form>
       <div className='flex justify-between mt-5'>
