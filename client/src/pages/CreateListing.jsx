@@ -1,13 +1,18 @@
-import React from 'react';
-import {useState} from 'react'
-import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
-import {app} from '../firebase';
-import {useSelector} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import { app } from '../firebase';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function CreateListing() {
-  const {currentUser}=useSelector(state => state.user)
-  const navigate = useNavigate()
+  const {currentUser}=useSelector((state) => state.user)
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -15,8 +20,8 @@ export default function CreateListing() {
     description: '',
     address: '',
     type: 'rent',
-    bedrooms: 1,
-    bathrooms: 1,
+    bedRooms: 1,
+    bathRooms: 1,
     regularPrice: 50,
     discountPrice: 0,
     offer: false,
@@ -28,7 +33,7 @@ export default function CreateListing() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(formData);
+  //console.log(formData);
   const handleImageSubmit = (e) => {
     if(files.length > 0 && files.length + formData.imageUrls.length< 7){
       setUploading(true);
@@ -142,6 +147,7 @@ export default function CreateListing() {
         setError(data.message);
       }
       navigate(`/listing/${data._id}`);
+      
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -149,7 +155,8 @@ export default function CreateListing() {
   };
   return (
     <main className='p-3 max-w-4xl mx-auto'>
-        <h1 className='text-3xl font-semibold text-center my-7'>Create a Listing</h1>
+        <h1 className='text-3xl font-semibold text-center my-7'>
+          Create a Listing</h1>
         <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row'>
             <div className='flex flex-col gap-4 flex-1'>
                 <input type="text" placeholder='Name' className='border p-3 rounded-lg' id='name' maxLength='62' minLength='10' 
@@ -160,7 +167,10 @@ export default function CreateListing() {
                 required  onChange={handleChange} value={formData.address}/>
             <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
-              <input type='checkbox' id='sale' className='w-5' onChange={handleChange} checked={formData.type==="sale"} />
+              <input type='checkbox'
+               id='sale' className='w-5' 
+               onChange={handleChange} 
+               checked={formData.type==='sale'} />
               <span>Sell</span>
             </div>
             <div className='flex gap-2'>
@@ -184,26 +194,26 @@ export default function CreateListing() {
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bedrooms'
+                id='bedRooms'
                 min='1'
                 max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bedrooms}
+                value={formData.bedRooms}
               />
               <p>Beds</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bathrooms'
+                id='bathRooms'
                 min='1'
                 max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bathrooms}
+                value={formData.bathRooms}
               />
               <p>Baths</p>
             </div>
@@ -279,7 +289,7 @@ export default function CreateListing() {
           <button disabled={loading || uploading} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
             {loading ? 'Creating....' :'Create Listing'}
           </button>
-          {error && <p className='text-red-700 text-sn'>(error)</p>}
+          {error && <p className='text-red-700 text-sn'>{error}</p>}
        </div>
       </form>
     </main>

@@ -33,7 +33,7 @@ export const updateUser = async (req, res, next) =>{
 };
 
 export const deleteUser = async(req,res , next) => {
-    if(req.user.id != req.params.id)
+    if(req.user.id !== req.params.id)
     return next(errorHandler(401, "you can only delete your own account!"))
     try {
         
@@ -56,6 +56,6 @@ export const getUserListings = async(req, res, next)=>{
         }
 
     }else {
-        return next(errorHandler(401, 'You can only view your own listing'));
+        return next(errorHandler(402, 'You can only view your own listing'));
     }
-}
+};
