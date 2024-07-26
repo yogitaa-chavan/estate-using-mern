@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 
+
 export default function CreateListing() {
   const {currentUser}=useSelector((state) => state.user)
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ export default function CreateListing() {
     description: '',
     address: '',
     type: 'rent',
-    bedRooms: 1,
-    bathRooms: 1,
+    bedrooms: 1,
+    bathrooms: 1,
     regularPrice: 50,
     discountPrice: 0,
     offer: false,
@@ -147,7 +148,6 @@ export default function CreateListing() {
         setError(data.message);
       }
       navigate(`/listing/${data._id}`);
-      
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -194,26 +194,26 @@ export default function CreateListing() {
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bedRooms'
+                id='bedrooms'
                 min='1'
                 max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bedRooms}
+                value={formData.bedrooms}
               />
               <p>Beds</p>
             </div>
             <div className='flex items-center gap-2'>
               <input
                 type='number'
-                id='bathRooms'
+                id='bathrooms'
                 min='1'
                 max='10'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
                 onChange={handleChange}
-                value={formData.bathRooms}
+                value={formData.bathrooms}
               />
               <p>Baths</p>
             </div>
@@ -231,6 +231,7 @@ export default function CreateListing() {
               <div className='flex flex-col items-center'>
                 <p>Regular price</p>
                 <span className='text-xs'>($ / month)</span>
+                
               </div>
             </div>
             {formData.offer &&(
@@ -287,9 +288,9 @@ export default function CreateListing() {
               </div>
             ))}
           <button disabled={loading || uploading} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
-            {loading ? 'Creating....' :'Create Listing'}
+            {loading ? 'Creating....' :'Create listing'}
           </button>
-          {error && <p className='text-red-700 text-sn'>{error}</p>}
+          {error && <p className='text-red-700 text-sm'>{error}</p>}
        </div>
       </form>
     </main>
